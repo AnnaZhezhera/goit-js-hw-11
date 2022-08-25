@@ -1,0 +1,19 @@
+{{#each this}}
+  <img
+    src='{{flags.svg}}'
+    alt='Flag of {{name.official}}'
+    class='flag'
+    width='40'
+  />
+  <h2 class='country-name'>{{name.official}}</h2>
+  <p class='capital card-item'><b>Capital:</b> {{capital}}</p>
+  <p class='population'><b>Population:</b> {{population}} people</p>
+  {{!-- <a href='{{flags.svg}}' class='link-flag'>
+  </a> --}}
+  <ul class='languages'><b>Languages:</b>
+    {{#each languages}}
+      <li>{{this}}{{#unless @last}},{{/unless}}</li>
+    {{/each}}
+  </ul>
+  {{!-- <p class='languages'>Languages: {{languages}}</p> --}}
+{{/each}}

@@ -1,0 +1,36 @@
+{
+  "name": "parcel-project-template",
+  "version": "2.0.0",
+  "description": "**Read in other languages: [Русский](README.md), [Polski](README.pl.md).**",
+  "homepage": "https://goitacademy.github.io/goit-js-hw-10/",
+  "scripts": {
+    "start": "parcel src/*.html",
+    "build": "parcel build src/*.html --public-url /goit-js-hw-10/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AnnaZhezhera/goit-js-hw-10.git"
+  },
+  "keywords": [],
+  "author": "Anna Zhezhera",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AnnaZhezhera/goit-js-hw-10/issues"
+  },
+  "dependencies": {
+    "@swc/helpers": "^0.4.7",
+    "handlebars": "^4.7.7",
+    "hbs": "^4.2.0",
+    "lodash.debounce": "^4.0.8",
+    "modern-normalize": "^1.1.0",
+    "notiflix": "^3.2.5"
+  },
+  "devDependencies": {
+    "@parcel/transformer-sass": "^2.6.0",
+    "parcel": "^2.6.0",
+    "parcel-reporter-clean-dist": "^1.0.4",
+    "parcel-transformer-hbs": "^1.0.4",
+    "posthtml-include": "^1.7.4"
+  },
+  "browserslist": "> 0.5%, last 2 versions, not dead"
+}
