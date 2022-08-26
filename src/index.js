@@ -1,80 +1,61 @@
 import './css/styles.css';
-import fetchCountries from './script/fetchCountries';
-import countryCardTpl from './templates/country-template.hbs';
-import countryListTpl from './templates/country-list-tpl.hbs';
-import Notiflix from 'notiflix';
-import debounce from 'lodash.debounce';
+import PixabayApiService from './js-components/pixabay-API';
 
-const DEBOUNCE_DELAY = 300;
-const inputEl = document.getElementById('search-box');
-const countryListEl = document.querySelector('.country-list');
-const countryInfoEl = document.querySelector('.country-info');
+// const APIKEY = '29521518-5bff3e3ab528698c58648398d';
+const searchFormEl = document.querySelector('.search-form');
+const loadMoreBtn = document.querySelector('.load-more');
+const galleryEl = document.querySelector('.gallery');
 
-// app.set('view engine', 'hbs');
-//test
+// const options = {
+//   headers: {
+//     Accept: 'application/json',
+//   },
+// };
 
-// fetchCountries().then(country => {
-//   console.log(country);
-//   countryCard(country);
-//   // .forEach(obj => console.log(obj));
-//   const markup = countryCard(country);
-//   countryInfoEl.insertAdjacentHTML('beforeend', markup);
-//   console.log(markup);
-// });
+const pixabayApiService = new PixabayApiService();
 
-inputEl.addEventListener(
-  'input',
-  debounce(onCountrySearchChange, DEBOUNCE_DELAY)
-);
+searchFormEl.addEventListener('submit', onSearch);
+loadMoreBtn.addEventListener('click', onLoadMore);
 
-function onCountrySearchChange(event) {
-  let input = event.target.value.trim();
-  console.log('Input', input);
-  if (!input) {
-    countryListEl.innerHTML = '';
-    countryInfoEl.innerHTML = '';
-    return;
-  }
-  fetchCountries(input)
-    .then(countries => {
-      console.log('Then:', countries);
+function onSearch(evt) {
+  evt.preventDefault();
 
-      countryListEl.innerHTML = '';
-      countryInfoEl.innerHTML = '';
+  pixabayApiService.query =
+    evt.currentTarget.elements.namedItem('searchQuery').value;
+  pixabayApiService.resetPage();
 
-      if (countries.length > 10) {
-        Notiflix.Notify.info(
-          'Too many matches found. Please enter a more specific name.'
-        );
-      } else if (countries.length > 1) {
-        const markupList = countryListTpl(countries);
-        countryListEl.innerHTML = markupList;
-      } else if (countries.length === 1) {
-        const markup = countryCardTpl(countries);
-        countryInfoEl.innerHTML = markup;
-      }
-      //   else if (countries.length === 0) {
-      //     alert('No country found');
-      //     console.log('no data');
-      //   }
+  pixabayApiService.fetchPictures().then(hits => {
+    console.log(hits);
+    appendPictureMarkup(hits);
+  });
+}
 
-      // countries.forEach(country => {
-      //   console.log('Country:', country);
+function onLoadMore() {
+  pixabayApiService.fetchPictures();
+}
 
-      //   const markup = countryCard(country);
-      //   countryInfoEl.innerHTML = markup;
-      //   console.log(markup);
-      // });
-      // countryCard(country);
-      // // .forEach(obj => console.log(obj));
-      // const markup = countryCard(country);
-      // countryInfoEl.insertAdjacentHTML('beforeend', markup);
-      // console.log(markup);
-    })
-    .catch(err => {
-      console.log('err:', err);
-      return Notiflix.Notify.failure(
-        'Oops, there is no country with that name'
-      );
-    });
+function appendPictureMarkup(hits) {
+  const markup = hits
+    .map(
+      hit => `<div class="photo-card">
+  <img src="${hit.webformatURL}" alt="${hit.tags}" loading="lazy" />
+  <div class="info">
+    <p class="info-item">
+      <b>Likes: ${hit.likes}</b>
+    </p>
+    <p class="info-item">
+      <b>Views: ${hit.views}</b>
+    </p>
+    <p class="info-item">
+      <b>Comments: ${hit.comments}</b>
+    </p>
+    <p class="info-item">
+      <b>Downloads: ${hit.downloads}</b>
+    </p>
+  </div>
+</div>`
+    )
+    .join('');
+
+  galleryEl.insertAdjacentHTML('beforeend', markup);
 }

@@ -1,8 +1,11 @@
+@import url('../../node_modules/@fortawesome/fontawesome-free/css/all.min.css');
+
 * {
   box-sizing: border-box;
 }
 
 body {
+  margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
     Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -12,13 +15,6 @@ body {
   line-height: 1.5;
 }
 
-#search-box {
-  font: inherit;
-  padding: 8px;
-  max-width: 320px;
-  margin-bottom: 16px;
-}
-
 p {
   font-size: 18px;
   margin-top: 0;
@@ -26,47 +22,79 @@ p {
   margin-left: 0;
 }
 
-.flag {
-  display: inline-block;
+.form-wrap {
+  display: flex;
+  height: 60px;
+  background-color: blue;
+}
+
+.search-form {
+  margin: auto;
+  min-width: 300px;
+}
+
+.search-input {
+  padding: 10px;
+  font-size: 17px;
+  border: 1px solid grey;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+  float: left;
+  width: 80%;
+  background: rgb(255, 253, 253);
+}
+
+.search-form button {
+  float: left;
+  width: 20%;
+  padding: 10px;
+  background: lightgray;
+  color: rgb(54, 54, 54);
+  font-size: 17px;
+  border: 1px solid grey;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  border-left: none; /* Prevent double borders */
+  cursor: pointer;
+}
+
+/* .search-form::after {
+  content: '';
+  clear: both;
+  display: table;
+} */
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, auto);
+  /* grid-auto-rows: minmax(1%, auto); */
+  row-gap: 70px;
+  column-gap: 20px;
+  /* padding-bottom: 100px; */
+}
+
+.photo-card img {
+  max-width: 569px;
+  max-height: 350px;
+  width: 100%;
   height: 100%;
-  vertical-align: center;
+  object-fit: cover;
 }
 
-.country-name {
-  display: inline-block;
-  font-size: 32px;
-  margin-bottom: 20px;
-  margin-top: 20px;
+.info {
+  display: flex;
+  padding: 10px;
 }
 
-.languages {
-  padding-left: 0;
-  margin: 0;
-  font-size: 18px;
+.info-item {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 90px;
+  text-align: center;
+  /* text-align: center; */
 }
 
-.languages li {
-  display: inline;
-  list-style: none;
-}
-
-.country-list {
-  padding-left: 0;
-  margin: 0;
-}
-.search-item {
-  display: block;
-  height: 50px;
-  list-style: none;
-}
-
-.search-item img {
-  vertical-align: middle;
-}
-
-.country-name-search {
-  display: inline-block;
-  font-size: 24px;
-  vertical-align: middle;
-  /* line-height: 50px; */
+.info-item:not(:last-child) {
+  margin-right: 70px;
 }

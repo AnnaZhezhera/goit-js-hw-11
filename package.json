@@ -18,6 +18,7 @@
     "url": "https://github.com/AnnaZhezhera/goit-js-hw-10/issues"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.1.2",
     "@swc/helpers": "^0.4.7",
     "handlebars": "^4.7.7",
     "hbs": "^4.2.0",
@@ -32,5 +33,6 @@
     "parcel-transformer-hbs": "^1.0.4",
     "posthtml-include": "^1.7.4"
   },
-  "browserslist": "> 0.5%, last 2 versions, not dead"
+  "browserslist": "> 0.5%, last 2 versions, not dead",
+  "main": "index.js"
 }
