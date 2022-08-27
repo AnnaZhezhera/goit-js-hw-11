@@ -19,6 +19,7 @@ loadMoreBtn.addEventListener('click', onLoadMore);
 
 function onSearch(evt) {
   evt.preventDefault();
+  clearPictureContainer();
 
   pixabayApiService.query =
     evt.currentTarget.elements.namedItem('searchQuery').value;
@@ -31,7 +32,10 @@ function onSearch(evt) {
 }
 
 function onLoadMore() {
-  pixabayApiService.fetchPictures();
+  pixabayApiService.fetchPictures().then(hits => {
+    console.log(hits);
+    appendPictureMarkup(hits);
+  });
 }
 
 function appendPictureMarkup(hits) {
@@ -58,4 +62,8 @@ function appendPictureMarkup(hits) {
     .join('');
 
   galleryEl.insertAdjacentHTML('beforeend', markup);
+}
+
+function clearPictureContainer() {
+  galleryEl.innerHTML = '';
 }
