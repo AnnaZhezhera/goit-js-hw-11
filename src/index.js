@@ -50,6 +50,7 @@ function onSearch(evt) {
     Notiflix.Notify.success(
       `Hooray! We found ${pixabayApiService.totalAvailableItemsCount} images.`
     );
+
     showBtnOnLoadMore();
   });
 }
@@ -64,6 +65,16 @@ function onLoadMore() {
 
   pixabayApiService.fetchPictures().then(hits => {
     appendPictureMarkup(hits);
+
+    const { height: cardHeight } = document
+      .querySelector('.gallery')
+      .firstElementChild.getBoundingClientRect();
+
+    window.scrollBy({
+      top: cardHeight * 2,
+      behavior: 'smooth',
+    });
+
     lightbox.refresh();
 
     if (
