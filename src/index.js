@@ -10,16 +10,13 @@ const loadMoreBtn = document.querySelector('.load-more');
 const galleryEl = document.querySelector('.gallery');
 
 // const options = {
-//   headers: {
-//     Accept: 'application/json',
-//   },
+//   root: null,
+//   rootMargin: '20px',
+//   threshold: 1,
 // };
 
 const pixabayApiService = new PixabayApiService();
-const lightbox = new SimpleLightbox('.gallery a', {
-  captionsData: 'alt',
-  captionDelay: 250,
-});
+const lightbox = new SimpleLightbox('.gallery a');
 
 hideBtnOnLoadMore();
 
