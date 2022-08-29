@@ -1,4 +1,5 @@
 @import url('../../node_modules/@fortawesome/fontawesome-free/css/all.min.css');
+@import url('../../node_modules/simplelightbox/dist/simple-lightbox.min.css');
 
 * {
   box-sizing: border-box;

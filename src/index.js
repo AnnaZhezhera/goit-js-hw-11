@@ -1,6 +1,8 @@
 import './css/styles.css';
 import PixabayApiService from './js-components/pixabay-API';
 import Notiflix from 'notiflix';
+import SimpleLightbox from '../node_modules/simplelightbox/dist/simple-lightbox.modules.js';
+import SimpleLightbox from 'simplelightbox';
 
 // const APIKEY = '29521518-5bff3e3ab528698c58648398d';
 const searchFormEl = document.querySelector('.search-form');
@@ -14,6 +16,11 @@ const galleryEl = document.querySelector('.gallery');
 // };
 
 const pixabayApiService = new PixabayApiService();
+const lightbox = new SimpleLightbox('.gallery a', {
+  captionsData: 'alt',
+  captionDelay: 250,
+});
+
 hideBtnOnLoadMore();
 
 searchFormEl.addEventListener('submit', onSearch);
@@ -39,6 +46,7 @@ function onSearch(evt) {
     console.log(hits);
     // console.log('TOTALItems', pixabayApiService.totalItems);
     appendPictureMarkup(hits);
+    lightbox.refresh();
     Notiflix.Notify.success(
       `Hooray! We found ${pixabayApiService.totalAvailableItemsCount} images.`
     );
@@ -56,6 +64,8 @@ function onLoadMore() {
 
   pixabayApiService.fetchPictures().then(hits => {
     appendPictureMarkup(hits);
+    lightbox.refresh();
+
     if (
       pixabayApiService.loadedItemsCount >=
       // galleryEl.children.length >=
@@ -73,7 +83,7 @@ function appendPictureMarkup(hits) {
   const markup = hits
     .map(
       hit => `<div class="photo-card">
-  <img src="${hit.webformatURL}" alt="${hit.tags}" loading="lazy" />
+  <a href="${hit.largeImageURL}"><img src="${hit.webformatURL}" alt="${hit.tags}" loading="lazy" title=""/></a>
   <div class="info">
     <p class="info-item">
       <b>Likes:</b><br>${hit.likes}

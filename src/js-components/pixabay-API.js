@@ -22,9 +22,9 @@ export default class PixabayApiService {
           this.items += 40;
           this.totalItems = data.totalHits;
 
-          console.log(this.totalItems);
           console.log('items on page:', this.items);
           console.log('Total hits', data.totalHits);
+          console.dir(data);
           if (!data.hits.length) {
             throw new Error('No image found');
           }
