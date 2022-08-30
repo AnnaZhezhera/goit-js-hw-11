@@ -25,7 +25,7 @@ export default class PixabayApiService {
         console.log('Total hits', data.totalHits);
         console.dir(data);
         if (!data.hits.length) {
-          throw new Error('No image found');
+          console.log('No image found');
         }
 
         return data.hits;
